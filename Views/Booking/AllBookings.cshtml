@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MovieTicketBookingSystem.Models.BookingModel>
+
+@{
+    ViewBag.Title = "My Bookings";
+}
+
+<h2>My Bookings</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Booking ID</th>
+        <th>Movie Name</th>
+        <th>Movie ID</th>
+        <th>Tickets</th>
+        <th>Rate</th>
+        <th>Amount</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Booking_id</td>
+            <td>@item.Movie_name</td>
+            <td>@item.Movie_id</td>
+            <td>@item.No_Of_Tickets</td>
+            <td>@item.Rate</td>
+            <td>@item.Amount</td>
+        </tr>
+    }
+</table>
+
+<br />
+
+<a href="@Url.Action("DisplayMovies", "Movie")">
+    Back to Movies
+</a>

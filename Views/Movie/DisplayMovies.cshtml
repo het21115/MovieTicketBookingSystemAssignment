@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MovieTicketBookingSystem.Models.Movie>
+
+<h2>Display Movies</h2>
+
+<table class="table">
+    <tr>
+        <th>Movie ID</th>
+        <th>Movie Name</th>
+        <th>Release Date</th>
+        <th>Category ID</th>
+        <th>Rate</th>
+    </tr>
+
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>@movie.Movie_id</td>
+            <td>@movie.Movie_name</td>
+            <td>@movie.Release_date</td>
+            <td>@movie.Category_id</td>
+            <td>@movie.Rate</td>
+            <td>
+                @Html.ActionLink(
+                    "Delete",
+                    "DeleteMovie",
+                    "Movie",
+                    new { id = movie.Movie_id },
+                    new { @class = "btn btn-danger" }
+                )
+            </td>
+            <td>
+                <a href="@Url.Action("BookTicket", "Booking", new { id = movie.Movie_id })">
+                    Book Ticket
+                </a>
+            </td>
+            <a href="@Url.Action("SearchMovie", "Movie")">
+                Search Movie By Category
+            </a>
+        </tr>
+    }
+</table>

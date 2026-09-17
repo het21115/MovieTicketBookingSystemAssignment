@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MovieTicketBookingSystem.Models.UserModel>
+
+@{
+    ViewBag.Title = "Display";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Display Users</h2>
+
+<p>
+    @Html.ActionLink("Create New User", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>City</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.User_id</td>
+                <td>@user.User_name</td>
+                <td>@user.Email_id</td>
+                <td>@user.User_password</td>
+                <td>@user.City</td>
+                <td>@user.Phone_no</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

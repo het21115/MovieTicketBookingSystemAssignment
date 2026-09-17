@@ -1,0 +1,57 @@
+﻿@model MovieTicketBookingSystem.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(model => model.Email_id)
+        <br />
+
+        @Html.TextBoxFor(model => model.Email_id, new { @class = "form-control" })
+
+        @Html.ValidationMessageFor(
+            model => model.Email_id,
+            "",
+            new { @class = "text-danger" }
+        )
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(model => model.User_password)
+        <br />
+
+        @Html.PasswordFor(model => model.User_password, new { @class = "form-control" })
+
+        @Html.ValidationMessageFor(
+            model => model.User_password,
+            "",
+            new { @class = "text-danger" }
+        )
+    </div>
+
+    <br />
+
+    <input type="submit" value="Login" class="btn btn-primary" />
+}
+
+<br />
+
+@if (ViewData["Message"] != null)
+{
+    <div class="text-danger">
+        @ViewData["Message"]
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

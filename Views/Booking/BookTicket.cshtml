@@ -1,0 +1,54 @@
+﻿@model MovieTicketBookingSystem.Models.BookingModel
+
+@{
+    ViewBag.Title = "Book Ticket";
+}
+
+<h2>Book Movie Ticket</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Movie_id)
+    @Html.HiddenFor(model => model.Category_id)
+    @Html.HiddenFor(model => model.Movie_name)
+    @Html.HiddenFor(model => model.Rate)
+
+    <div>
+        <label>Movie Name</label>
+        <input type="text" value="@Model.Movie_name" readonly />
+    </div>
+
+    <br />
+
+    <div>
+        <label>Ticket Rate</label>
+        <input type="text" value="@Model.Rate" readonly />
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(model => model.No_Of_Tickets)
+
+        @Html.TextBoxFor(
+            model => model.No_Of_Tickets,
+            new { type = "number", min = "1", max = "10" }
+        )
+
+        @Html.ValidationMessageFor(
+            model => model.No_Of_Tickets
+        )
+    </div>
+
+    <br />
+
+    <input type="submit" value="Book Ticket" />
+}
+
+<br />
+
+<a href="@Url.Action("DisplayMovies", "Movie")">
+    Back to Movies
+</a>
