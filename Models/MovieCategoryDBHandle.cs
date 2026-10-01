@@ -66,16 +66,17 @@ namespace MovieTicketBookingSystem.Models
             Connection();
 
             string query =
-                "INSERT INTO Tbl_Movie_Category " +
-                "(Cat_Type) VALUES (@Cat_Type)";
+                "INSERT INTO Tbl_Movie_Category (Category_id, Type) " +
+                "VALUES ((SELECT ISNULL(MAX(Category_id), 0) + 1 " +
+                "FROM Tbl_Movie_Category), @Type)";
 
-            SqlCommand cmd =
-                new SqlCommand(query, con);
+            SqlCommand cmd = new SqlCommand(query, con);
 
-            cmd.Parameters.AddWithValue(
-                "@Cat_Type",
-                category.Type
-            );
+            cmd.Parameters.Add(
+                "@Type",
+                SqlDbType.NChar,
+                100
+            ).Value = category.Type ?? "";
 
             con.Open();
 
@@ -83,13 +84,8 @@ namespace MovieTicketBookingSystem.Models
 
             con.Close();
 
-            if (result > 0)
-                return true;
-
-            return false;
+            return result > 0;
         }
-
-
         // 3. Get Category By ID
         public MovieCategory GetCategoryById(int id)
         {

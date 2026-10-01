@@ -45,6 +45,12 @@ namespace MovieTicketBookingSystem.Controllers
 
             return View(login);
         }
+        public ActionResult Display()
+        {
+            List<UserModel> users = userDB.getUsers();
+
+            return View(users);
+        }
         [HttpGet]
         public ActionResult UserProfile()
         {
@@ -88,29 +94,51 @@ namespace MovieTicketBookingSystem.Controllers
 
             return View(user);
         }
-        // GET: MovieCategory/Create
+        // GET: User/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: MovieCategory/Create
+        // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MovieCategory category)
+        public ActionResult Create(UserModel user)
         {
             if (ModelState.IsValid)
             {
-                if (categoryDB.AddCategory(category))
+                if (userDB.AddUser(user))
                 {
                     return RedirectToAction("Display");
                 }
             }
 
-            return View(category);
+            return View(user);
+        }
+        // GET: MovieCategory/Create
+        // GET: MovieCategory/Create
+        [HttpGet]
+        // GET: MovieCategory/Create
+        public ActionResult CreateCategory()
+        {
+            return View();
         }
 
-        // GET: MovieCategory/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCategory(MovieCategory category)
+        {
+            if (ModelState.IsValid)
+            {
+                if (categoryDB.AddCategory(category))
+                {
+                    return RedirectToAction("CategoryDisplay");
+                }
+            }
+
+            return View(category);
+        }  // GET: MovieCategory/Edit/5
         public ActionResult Edit(int id)
         {
             MovieCategory category = categoryDB.GetCategoryById(id);
@@ -132,7 +160,7 @@ namespace MovieTicketBookingSystem.Controllers
             {
                 if (categoryDB.UpdateCategory(category))
                 {
-                    return RedirectToAction("Display");
+                    return RedirectToAction("CategoryDisplay");
                 }
             }
 
@@ -159,10 +187,16 @@ namespace MovieTicketBookingSystem.Controllers
         {
             if (categoryDB.DeleteCategory(id))
             {
-                return RedirectToAction("Display");
+                return RedirectToAction("CategoryDisplay");
             }
 
             return View();
+        }
+        public ActionResult CategoryDisplay()
+        {
+            List<MovieCategory> categories = categoryDB.GetCategories();
+
+            return View(categories);
         }
     }
 }

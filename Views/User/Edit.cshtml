@@ -1,0 +1,41 @@
+﻿@model MovieTicketBookingSystem.Models.MovieCategory
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Category</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Category_id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Type)
+
+        @Html.TextBoxFor(
+            model => model.Type,
+            new { @class = "form-control" }
+        )
+
+        @Html.ValidationMessageFor(
+            model => model.Type,
+            "",
+            new { @class = "text-danger" }
+        )
+    </div>
+
+    <br />
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+
+    @Html.ActionLink(
+        "Back to Categories",
+        "CategoryDisplay",
+        null,
+        new { @class = "btn btn-secondary" }
+    )
+}
